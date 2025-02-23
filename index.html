@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locked Content</title>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: black;
+            text-decoration: none;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        #lockedContent {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Locked Content</h2>
+    <p>Click the button, follow the channel, and watch the video for at least 15 seconds. Then return back here and refresh the page to unlock the content.</p>
+
+    <!-- YouTube Watch Button -->
+    <a href="#" class="button" onclick="openYouTube()">Watch the video and follow to get unlocked</a>
+
+    <!-- Unlocked Content (Hidden by Default) -->
+    <div id="lockedContent">
+        <h3>Congratulations! You've unlocked the content.</h3>
+        <p>Click below to access your content:</p>
+        <a href="https://1024terabox.com/s/1j3aBuTzzQVcqYFy-MveEYg" class="button">Access Content</a>
+    </div>
+
+    <script>
+        function openYouTube() {
+            var videoId = "jNp0c2HECw4"; // Replace with your actual video ID
+            var youtubeAppLink = "vnd.youtube://watch?v=" + videoId;
+            var youtubeWebLink = "https://www.youtube.com/watch?v=" + videoId;
+
+            // Try opening YouTube App first
+            window.location.href = youtubeAppLink;
+            sessionStorage.setItem('watchedTime', Date.now());
+
+            // Fallback to YouTube browser link
+            setTimeout(function() {
+                window.location.href = youtubeWebLink;
+            }, 500);
+        }
+
+        window.onload = function() {
+            var watchedTime = sessionStorage.getItem('watchedTime');
+            if (watchedTime) {
+                var elapsedTime = (Date.now() - watchedTime) / 1000;
+                if (elapsedTime >= 15) {
+                    document.getElementById('lockedContent').style.display = 'block';
+                }
+            }
+        };
+    </script>
+</body>
+</html>
